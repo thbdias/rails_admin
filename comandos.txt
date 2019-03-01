@@ -8,30 +8,25 @@ git push -u origin master
 
 
 ### DOCKER 
-docker run -it --rm --user "$(id -u):$(id -g)" -v "$PWD":/usr/src/app -w /usr/src/app rails rails _5.0.1_ new --skip-bundle petadmin --database=postgresql
+docker run -it --rm --user "$(id -u):$(id -g)" -v "$PWD":/usr/src/app -w /usr/src/app rails rails _5.0.1_ new --skip-bundle rails_admin --database=postgresql
 docker-compose build
 docker-compose run --rm app bundle install
 docker-compose run --rm app bundle exec rake db:create
 docker-compose up --build
 docker-compose up 
-docker-compose run --rm app bundle exec rails g fae:install
 
-docker-compose run --rm app bundle exec rails g fae:scaffold Client name:string email:string observations:text phone:string
-docker-compose run --rm app bundle exec rails g fae:scaffold Product title:string description:string hero_image:image price:decimal observations:text supplier:references
-docker-compose run --rm app bundle exec rails g fae:scaffold Service title:string description:text price:integer hero_image:image observations:text
-docker-compose run --rm app bundle exec rails g fae:scaffold Discount title:string value:decimal
-docker-compose run --rm app bundle exec rails g fae:scaffold Campaign title:string body:text
-docker-compose run --rm app bundle exec rails g fae:scaffold Supplier name:string observations:text email:string phone:string
-docker-compose run --rm app bundle exec rails g fae:scaffold Sell total:decimal discount:references client:references observations:text status:integer date:date
+
+rails g model User name:string document:string kind:integer status:integer notes:text
+rails g model Client name:string company_name:string document:string email:string phone:string user:references notes:text status:integer
+rails g model Address country:string city:string state:string neighborhood:string street:string number:string client:references user_id:integer
+rails g model Product name:string description:text status:integer
+rails g model Discount name:string description:text value:integer kind:integer status:integer
+rails g model ProductQuantity product:references quantity:integer user:references
+rails g model Sale client:references sale_date:date user:references discount:references notes:text
+rails g model Comission sale:references value:decimal user:references status:integer note:text
+
 
 docker-compose run --rm app bundle exec rake db:migrate
 
-docker-compose run --rm app bundle exec rake fae:seed_db
+rails g rails_admin:install
 
-docker-compose run --rm app bundle exec rails g model sell_product product:references sell:references
-docker-compose run --rm app bundle exec rails g model sell_service service:references sell:references
-docker-compose run --rm app bundle exec rails g model campaign_clients campaign:references client:references
-
-docker-compose run --rm app bundle exec rails g mailer Marketing campaign
-
-docker-compose run --rm app bundle exec rails g job Campaing
