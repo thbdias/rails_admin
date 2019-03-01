@@ -16,17 +16,18 @@ docker-compose up --build
 docker-compose up 
 
 
-rails g model User name:string document:string kind:integer status:integer notes:text
-rails g model Client name:string company_name:string document:string email:string phone:string user:references notes:text status:integer
-rails g model Address country:string city:string state:string neighborhood:string street:string number:string client:references user_id:integer
-rails g model Product name:string description:text status:integer
-rails g model Discount name:string description:text value:integer kind:integer status:integer
-rails g model ProductQuantity product:references quantity:integer user:references
-rails g model Sale client:references sale_date:date user:references discount:references notes:text
-rails g model Comission sale:references value:decimal user:references status:integer note:text
+docker-compose run --rm app bundle exec rails g model User name:string document:string kind:integer status:integer notes:text
+docker-compose run --rm app bundle exec rails g model Client name:string company_name:string document:string email:string phone:string user:references notes:text status:integer
+docker-compose run --rm app bundle exec rails g model Address country:string city:string state:string neighborhood:string street:string number:string client:references user_id:integer
+docker-compose run --rm app bundle exec rails g model Product name:string description:text status:integer
+docker-compose run --rm app bundle exec rails g model Discount name:string description:text value:integer kind:integer status:integer
+docker-compose run --rm app bundle exec rails g model ProductQuantity product:references quantity:integer user:references
+-----docker-compose run --rm app bundle exec rails g model ProductQuantity product:references quantity:integer user:references sale:references
+docker-compose run --rm app bundle exec rails g model Sale client:references sale_date:date user:references discount:references notes:text
+docker-compose run --rm app bundle exec rails g model Comission sale:references value:decimal user:references status:integer note:text
 
 
 docker-compose run --rm app bundle exec rake db:migrate
 
-rails g rails_admin:install
+docker-compose run --rm app bundle exec rails g rails_admin:install
 
