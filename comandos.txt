@@ -1,0 +1,37 @@
+### GIT 
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin git@github.com:thbdias/rails_admin.git
+git push -u origin master
+########################################################################
+
+
+### DOCKER 
+docker run -it --rm --user "$(id -u):$(id -g)" -v "$PWD":/usr/src/app -w /usr/src/app rails rails _5.0.1_ new --skip-bundle petadmin --database=postgresql
+docker-compose build
+docker-compose run --rm app bundle install
+docker-compose run --rm app bundle exec rake db:create
+docker-compose up --build
+docker-compose up 
+docker-compose run --rm app bundle exec rails g fae:install
+
+docker-compose run --rm app bundle exec rails g fae:scaffold Client name:string email:string observations:text phone:string
+docker-compose run --rm app bundle exec rails g fae:scaffold Product title:string description:string hero_image:image price:decimal observations:text supplier:references
+docker-compose run --rm app bundle exec rails g fae:scaffold Service title:string description:text price:integer hero_image:image observations:text
+docker-compose run --rm app bundle exec rails g fae:scaffold Discount title:string value:decimal
+docker-compose run --rm app bundle exec rails g fae:scaffold Campaign title:string body:text
+docker-compose run --rm app bundle exec rails g fae:scaffold Supplier name:string observations:text email:string phone:string
+docker-compose run --rm app bundle exec rails g fae:scaffold Sell total:decimal discount:references client:references observations:text status:integer date:date
+
+docker-compose run --rm app bundle exec rake db:migrate
+
+docker-compose run --rm app bundle exec rake fae:seed_db
+
+docker-compose run --rm app bundle exec rails g model sell_product product:references sell:references
+docker-compose run --rm app bundle exec rails g model sell_service service:references sell:references
+docker-compose run --rm app bundle exec rails g model campaign_clients campaign:references client:references
+
+docker-compose run --rm app bundle exec rails g mailer Marketing campaign
+
+docker-compose run --rm app bundle exec rails g job Campaing
