@@ -28,7 +28,7 @@ docker-compose run --rm app bundle exec rails g model Comission sale:references 
 
 
 docker-compose run --rm app bundle exec rake db:migrate
-
 docker-compose run --rm app bundle exec rails g rails_admin:install
-
 docker-compose run --rm app bundle exec rake db:seed
+docker-compose run --rm app bundle exec rails generate devise:install
+docker-compose run --rm app bundle exec rails generate devise User
