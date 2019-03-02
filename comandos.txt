@@ -32,3 +32,4 @@ docker-compose run --rm app bundle exec rails g rails_admin:install
 docker-compose run --rm app bundle exec rake db:seed
 docker-compose run --rm app bundle exec rails generate devise:install
 docker-compose run --rm app bundle exec rails generate devise User
+docker-compose run --rm app bundle exec rails g cancan:ability
