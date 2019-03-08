@@ -3,5 +3,6 @@ class Client < ApplicationRecord
   
   enum status: [:active, :inactive]
 
-  has_one :address
+  # has_one :address
+  has_many :address
 end

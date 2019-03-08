@@ -26,6 +26,13 @@ docker-compose run --rm app bundle exec rails g model ProductQuantity product:re
 docker-compose run --rm app bundle exec rails g model Sale client:references sale_date:date user:references discount:references notes:text
 docker-compose run --rm app bundle exec rails g model Comission sale:references value:decimal user:references status:integer note:text
 
+	
+docker-compose run --rm app bundle exec rails g migration add_sale_id_to_product_quantity sale_id:integer
+docker-compose run --rm app bundle exec rails g migration add_price_to_product price:decimal
+docker-compose run --rm app bundle exec rake db:drop db:create db:migrate db:seed
+
+docker-compose run --rm app bundle exec rails generate uploader Photo
+docker-compose run --rm app bundle exec rails g migration add_photo_to_product photo:string
 
 docker-compose run --rm app bundle exec rake db:migrate
 docker-compose run --rm app bundle exec rails g rails_admin:install
