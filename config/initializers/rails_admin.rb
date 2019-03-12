@@ -17,7 +17,7 @@ RailsAdmin.config do |config|
     'OneBitCode' => 'https://onebitcode.com'
   }
 
-  config.navigation_static_label = "Lins Úteis"
+  config.navigation_static_label = "Links Úteis"
 
   config.model Sale do
     navigation_icon 'fa fa-money'
